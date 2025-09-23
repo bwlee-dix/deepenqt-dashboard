@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "dev": "deepenqt-dev",
+    "prd": "deepenqt-prd"
+  }
+}
