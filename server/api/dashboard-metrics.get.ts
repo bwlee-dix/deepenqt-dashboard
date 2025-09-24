@@ -33,17 +33,32 @@ export default defineEventHandler(async (event) => {
       return lastSignIn >= yesterdayTimestamp;
     }).length;
 
-    const monthlyActiveUsers = allUsers.filter((user) => {
+    const monthlyActiveUser = allUsers.filter((user) => {
       if (!user.metadata.lastSignInTime) return false;
       const lastSignIn = parseInt(user.metadata.lastSignInTime) / 1000;
       return lastSignIn >= lastMonthTimestamp;
     }).length;
 
+    // QT 완료율 데이터 가져오기
+    const qtCompletionResponse = await fetch(`${getRequestURL(event).origin}/api/qt-completion-rate`);
+    const qtData = qtCompletionResponse.ok
+      ? await qtCompletionResponse.json()
+      : {
+          averageCompletionRate: 0,
+          totalSession: 0,
+          completedSession: 0,
+          overallCompletionRate: 0,
+        };
+
     return {
       totalUsers,
       newUsers,
       dau,
-      monthlyActiveUsers,
+      monthlyActiveUser,
+      qtCompletionRate: qtData.averageCompletionRate,
+      qtTotalSession: qtData.totalSession,
+      qtCompletedSession: qtData.completedSession,
+      qtOverallCompletionRate: qtData.overallCompletionRate,
       timestamp: now.toISOString(),
     };
   } catch (error) {
