@@ -1,24 +1,25 @@
 <script setup lang="ts">
   import Card from "@/lib/ui/card/Card.vue";
 
-  interface Props {
-    title: string;
-    value?: number | string;
-    subtitle?: string;
-    icon: Component;
-    iconClass?: string;
-    iconBgClass?: string;
-    trend?: number;
-    isLoading?: boolean;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
-    value: 0,
-    iconClass: "text-blue-600",
-    iconBgClass: "bg-blue-100",
-    trend: undefined,
-    isLoading: false,
-  });
+  const props = withDefaults(
+    defineProps<{
+      title: string;
+      value?: number | string;
+      subtitle?: string;
+      icon: Component;
+      iconClass?: string;
+      iconBgClass?: string;
+      trend?: number;
+      isLoading?: boolean;
+    }>(),
+    {
+      value: 0,
+      subtitle: "",
+      trend: 0,
+      iconClass: "text-blue-600",
+      iconBgClass: "bg-blue-100",
+    }
+  );
 
   const formattedValue = computed(() => {
     if (props.value === undefined || props.value === null) {
@@ -43,7 +44,7 @@
     <div class="flex items-center justify-between">
       <div>
         <p class="text-sm font-medium text-gray-600">{{ title }}</p>
-        <div v-if="isLoading" class="h-9 bg-gray-200 rounded animate-pulse w-20"></div>
+        <div v-if="isLoading" class="h-9 bg-gray-200 rounded animate-pulse w-20" />
         <p v-else class="text-3xl font-bold text-gray-900">{{ formattedValue }}</p>
         <p v-if="subtitle" class="text-xs text-gray-500 mt-1">{{ subtitle }}</p>
       </div>

@@ -12,7 +12,7 @@
     qtOverallCompletionRate: number;
   }
 
-  const props = defineProps<{
+  const _props = defineProps<{
     metrics: MetricData;
   }>();
 </script>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  defineProps<{
+  const _props = defineProps<{
     error: string;
   }>();
 </script>

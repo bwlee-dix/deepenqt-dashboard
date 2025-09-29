@@ -26,7 +26,7 @@
               {{ props.lastUpdated.toLocaleTimeString() }}
             </ClientOnly>
           </div>
-          <Button @click="emits('refresh')" :disabled="props.isLoading">
+          <Button :disabled="props.isLoading" @click="emits('refresh')">
             {{ isLoading ? "새로고침 중..." : "새로고침" }}
           </Button>
         </div>
